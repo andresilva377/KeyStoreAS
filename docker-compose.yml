@@ -8,3 +8,57 @@ services:
       DB_USER: keystore 
       DB_PASS: Ad4hjZOohoM74iIG 
       SECRET: JSJDAAMFKJAUFMCKOPOAKCIKJOA@%&$JNASJNDsdaasfasfc$%$@
+
+  component:
+    build: ./component
+    container_name: keystore
+    volumes:
+      - "./component/app"
+    working_dir: "/src/app"
+    ports:
+      -"3001:3000"
+    command: npm run start
+      
+    
+  product:
+    build: ./product
+    container_name: keystore
+    volumes:
+        - "./product/app"
+    working_dir: "/src/app"
+    ports:
+        -"3002:3000"
+    dommand: npm run start
+
+
+  promotion:
+    build: ./product
+    container_name: keystore
+    volumes:
+        - "./product/app"
+    working_dir: "/src/app"
+    ports:
+        -"3002:3000"
+    dommand: npm run start
+
+
+  review:
+    build: ./product
+    container_name: keystore
+    volumes:
+        - "./product/app"
+    working_dir: "/src/app"
+    ports:
+        -"3003:3000"
+    dommand: npm run start
+
+
+  shop:
+    build: ./product
+    container_name: keystore
+    volumes:
+        - "./product/app"
+    working_dir: "/src/app"
+    ports:
+        -"3004:3000"
+    dommand: npm run start
