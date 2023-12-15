@@ -15,13 +15,13 @@ exports.createReview = async (req, res) => {
       }
 
       // Check if the game with the provided name exists
-      const game = await Game.findOne({ name: gameName });
+      const game = await Game.findOne({ name: gameid });
       if (!game) {
         return res.status(404).send('Game not found');
       }
 
       // Create the review with the game name
-      const review = new Review({ game: gameName, userEmail, rating, comment });
+      const review = new Review({ game: gameid, userEmail, rating, comment });
       await review.save();
 
       res.status(201).json(review);
