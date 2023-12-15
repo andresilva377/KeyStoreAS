@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const PromotionController = require("../controllers/promotionController");
+const promotionController = require("../controllers/promotionController");
 
 
 // Route to create a new promotion
