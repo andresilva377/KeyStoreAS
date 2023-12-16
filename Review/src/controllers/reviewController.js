@@ -6,7 +6,7 @@ const Review = require("../models/reviewModel");
 
 exports.createReview = async (req, res) => {
     try {
-      const { gameName, userEmail, rating, comment } = req.body;
+      const { gameid, userEmail, rating, comment } = req.body;
 
       // Check if the user with the provided email exists
       const user = await User.findOne({ email: userEmail });
