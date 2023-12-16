@@ -15,13 +15,13 @@ exports.addProduct = async (req, res) => {
         }
     
         // Verify if the user exists
-        const user = await User.findById(userEmail);
+        const user = await User.findById(user);
         if (!user) {
           return res.status(404).json({ error: "User not found" });
         }
     
         // Check if the game is already in the wishlist
-        const existingShopItem = await Shop.findOne({ gameid, userEmail });
+        const existingShopItem = await Shop.findOne({ gameid, user });
         if (existingShopItem) {
           return res.status(400).json({ error: "Game is already in the wishlist" });
         }
@@ -43,11 +43,11 @@ exports.addProduct = async (req, res) => {
 
 //delete a product to the wishlist
 exports.deleteProduct = async (req, res) => {
-    const { gameid, userEmail } = req.body;
+    const { gameid, user } = req.body;
 
   try {
     // Remove the game from the wishlist
-    const deletedShopItem = await Shop.findOneAndDelete({ gameid, userEmail });
+    const deletedShopItem = await Shop.findOneAndDelete({ gameid, user });
 
     if (!deletedShopItem) {
       return res.status(404).json({ error: "Game not found in the wishlist" });
@@ -61,7 +61,7 @@ exports.deleteProduct = async (req, res) => {
 
 //purchase a product from the wishlist
 exports.addPurchase = async (req, res) => {
-    const { gameid, userEmail } = req.body;
+    const { gameid, user } = req.body;
 
   try {
     // Verify if the game is available
@@ -71,19 +71,19 @@ exports.addPurchase = async (req, res) => {
     }
 
     // Verify if the user exists
-    const user = await User.findById(userEmail);
+    const user = await User.findById(user);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
     // Check if the game is in the wishlist
-    const existingShopItem = await Shop.findOne({ gameid, userEmail });
+    const existingShopItem = await Shop.findOne({ gameid, user });
     if (!existingShopItem) {
       return res.status(400).json({ error: "Game is not in the wishlist" });
     }
 
     // Remove the game from the wishlist
-    await Shop.findOneAndDelete({ gameid, userEmail });
+    await Shop.findOneAndDelete({ gameid, user });
 
     // Add the game to the user's purchased games
     user.purchasedGames.push(gameid);
@@ -98,7 +98,7 @@ exports.addPurchase = async (req, res) => {
 
 //delete a purchase of product from the wishlist
 exports.deletePurchase = async (req, res) => {
-    const { gameid, userEmail } = req.body;
+    const { gameid, user } = req.body;
 
   try {
     // Verify if the game is available
@@ -108,7 +108,7 @@ exports.deletePurchase = async (req, res) => {
     }
 
     // Verify if the user exists
-    const user = await User.findById(userEmail);
+    const user = await User.findById(user);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -129,7 +129,3 @@ exports.deletePurchase = async (req, res) => {
   }
     
 };
-
-
-
-
