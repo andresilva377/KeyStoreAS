@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ShopController = require("../controllers/reviewController");
-
+const reviewController = require("../controllers/reviewController");
 
 // Routes
 
@@ -17,6 +16,5 @@ router.get("/reviews/user/getReview/:userEmail", reviewController.getReview);
 
 // Route to delete an existing review
 router.delete("/reviews/deleteReview/:reviewId", reviewController.deleteReview);
-
 
 module.exports = router;

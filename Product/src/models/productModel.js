@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
 
-const Game = mongoose.model("game", {
+const Game = mongoose.model("Game", {
   title: String,
-  price: Schema.Types.Decimal128,
+  price: Number,
   genre: String,
-  stock: { type: Number },
-  quantity: { type: Number },
-  ram: { type: Number } ,
+  stock: Number,
+  ram: Number,
   cpuModel: String,
   gpuModel: String,
-  ostype: String
+  ostype: String,
 });
 
 module.exports = Game;
