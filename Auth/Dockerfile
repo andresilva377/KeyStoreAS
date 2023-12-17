@@ -1,5 +1,5 @@
 FROM node:lts
-WORKDIR /NODE_AUTH_JWT
+WORKDIR /Auth
 COPY package*.json ./
 RUN npm install
 COPY . .
