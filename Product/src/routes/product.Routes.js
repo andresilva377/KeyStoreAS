@@ -8,5 +8,6 @@ router.get("/games/:id", productController.getGame);
 router.get("/games", productController.getGames);
 router.put("/games/edit/:id", productController.editgame);
 router.delete("/games/delete/:id", productController.deleteGame);
+router.get("/game/verify/:id", productController.verifyGameById);
 
 module.exports = router;

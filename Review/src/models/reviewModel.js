@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const Review = mongoose.model("Review", {
-  gameid: { type: mongoose.Schema.Types.ObjectId, ref: "Game" },
-  userEmail: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  gameid: String,
+  userEmail: String,
   rating: Number,
   comment: String,
 });

@@ -145,3 +145,22 @@ exports.getUser = async (req, res) => {
     return res.status(500).send({ error: err, message: err.message });
   }
 };
+
+exports.verifyUserByEmail = async (req, res) => {
+  try {
+    // req.params
+    let email = req.params.email;
+
+    // Check if user exists
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).send({ success: 0 });
+    }
+
+    // Send response
+    return res.status(200).send({ success: 1 });
+  } catch (err) {
+    return res.status(500).send({ error: err, message: err.message });
+  }
+};

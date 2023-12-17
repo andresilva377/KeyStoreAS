@@ -132,3 +132,20 @@ exports.deleteGame = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.verifyGameById = async (req, res) => {
+  try {
+    // req.params
+    let id = req.params.id;
+
+    const game = await Game.findById(id);
+    if (!game) {
+      return res.status(404).json({ success: 0 });
+    }
+
+    // Send response
+    return res.status(200).send({ success: 1 });
+  } catch (err) {
+    return res.status(500).send({ error: err, message: err.message });
+  }
+};
