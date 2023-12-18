@@ -9,12 +9,12 @@ exports.createReview = async (req, response) => {
 
   // Check if the user with the provided email exists
   axios
-    .get(`http://localhost:3001/user/verify/${userEmail}`)
+    .get(`http://localhost:8080/http-auth/user/verify/${userEmail}`)
     .then((res) => {
       const { success } = res.data;
       if (success === 1) {
         axios
-          .get(`http://localhost:3002/game/verify/${gameid}`)
+          .get(`http://localhost:8080/http-product/game/verify/${gameid}`)
           .then(async (res) => {
             const { success } = res.data;
             if (success === 1) {
@@ -32,14 +32,14 @@ exports.createReview = async (req, response) => {
             }
           })
           .catch((error) => {
-            return res.status(500).send({ error: error, message: error.message });
+            return response.status(500).send({ error: error, message: error.message });
           });
       } else {
         return response.status(404).send("User not found");
       }
     })
     .catch((error) => {
-      return res.status(500).send({ error: error, message: error.message });
+      return response.status(500).send({ error: error, message: error.message });
     });
 };
 
@@ -48,7 +48,7 @@ exports.getReview = async (req, response) => {
     const gameid = req.params.gameid;
 
     axios
-      .get(`http://localhost:3002/game/verify/${gameid}`)
+      .get(`http://localhost:8080/http-product/game/verify/${gameid}`)
       .then(async (res) => {
         const { success } = res.data;
         if (success === 1) {
@@ -56,7 +56,7 @@ exports.getReview = async (req, response) => {
             const reviews = await Review.find({ gameid: gameid });
 
             if (!reviews) {
-              return res.status(404).send({ success: 0, message: "Don't have reviews!" });
+              return response.status(404).send({ success: 0, message: "Don't have reviews!" });
             }
 
             return response.status(200).json(reviews);
@@ -69,11 +69,11 @@ exports.getReview = async (req, response) => {
         }
       })
       .catch((error) => {
-        return res.status(500).send({ error: error, message: error.message });
+        return response.status(500).send({ error: error, message: error.message });
       });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error");
+    response.status(500).send("Internal server error");
   }
 };
 
@@ -110,7 +110,7 @@ exports.deleteReview = async (req, res) => {
     const reviewId = req.params.reviewId;
 
     const deletedReview = await Review.findByIdAndDelete(reviewId);
-    if (!deletedReview) {
+    if (!deletedGame) {
       return res.status(404).json({ message: "Review not found" });
     }
     res.status(200).json({ message: "Review deleted successfully" });
